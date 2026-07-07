@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esta Casa — Refúgio na Mata Atlântica</title>
+<meta name="description" content="Esta Casa: um refúgio de montanha cercado por Mata Atlântica, onde a natureza passa sem pedir licença.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f4ee;
+    --ink:#20261f;
+    --ink-soft:#4c5449;
+    --moss:#3f5138;
+    --moss-dark:#232c1f;
+    --clay:#a9633f;
+    --cream:#f0ead9;
+    --line: rgba(32,38,31,0.12);
+    --max: 1200px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+  img{display:block; max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+
+  /* lang toggle */
+  [data-i18n]{display:none;}
+  html[data-lang="pt"] [data-i18n="pt"]{display:block;}
+  html[data-lang="en"] [data-i18n="en"]{display:block;}
+  html[data-lang="pt"] span[data-i18n="pt"]{display:inline;}
+  html[data-lang="en"] span[data-i18n="en"]{display:inline;}
+
+  /* nav */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 40px;
+    mix-blend-mode:difference;
+  }
+  header .wordmark{
+    font-family:'Fraunces',serif; font-size:19px; letter-spacing:0.04em;
+    color:#fff; text-transform:uppercase;
+  }
+  .langswitch{
+    display:flex; gap:6px; font-size:13px; letter-spacing:0.06em; color:#fff;
+  }
+  .langswitch button{
+    background:none; border:1px solid rgba(255,255,255,0.5); color:#fff;
+    padding:5px 12px; border-radius:20px; cursor:pointer; font-family:'Inter',sans-serif;
+    transition:all .2s;
+  }
+  .langswitch button.active{background:#fff; color:#111;}
+
+  /* hero */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter:brightness(0.72);
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(15,20,12,0.15) 0%, rgba(15,20,12,0.05) 40%, rgba(12,16,10,0.75) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2; width:100%;
+    padding:0 40px 72px;
+    color:#fff;
+  }
+  .hero-eyebrow{
+    font-size:13px; letter-spacing:0.22em; text-transform:uppercase;
+    opacity:0.85; margin-bottom:18px; font-weight:500;
+  }
+  .hero h1{
+    font-size:clamp(48px, 9vw, 108px);
+    font-weight:400;
+    line-height:0.96;
+    letter-spacing:-0.01em;
+    max-width:900px;
+  }
+  .hero-sub{
+    margin-top:22px; font-size:clamp(15px,2vw,19px); max-width:520px; opacity:0.92;
+    font-weight:300;
+  }
+  .scroll-cue{
+    position:absolute; bottom:28px; right:40px; z-index:2; color:#fff;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; opacity:0.8;
+  }
+  .scroll-cue .line{width:1px; height:40px; background:rgba(255,255,255,0.6); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:.3} 50%{opacity:1}}
+
+  /* section shell */
+  section{padding:120px 0;}
+  .sec-label{
+    font-size:13px; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--clay); font-weight:600; margin-bottom:20px;
+  }
+  .sec-title{
+    font-size:clamp(32px,4.5vw,54px); font-weight:400; line-height:1.08;
+    letter-spacing:-0.01em; max-width:760px;
+  }
+
+  /* intro */
+  .intro{background:var(--bg);}
+  .intro-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:80px; align-items:end;
+  }
+  .intro-text p{
+    font-size:18px; color:var(--ink-soft); margin-top:26px; max-width:520px; font-weight:300;
+  }
+  .intro-stats{
+    display:grid; grid-template-columns:1fr 1fr; gap:32px 24px;
+    border-top:1px solid var(--line); padding-top:28px; margin-top:44px;
+  }
+  .stat b{
+    display:block; font-family:'Fraunces',serif; font-size:34px; font-weight:500; color:var(--moss);
+  }
+  .stat span{font-size:13px; color:var(--ink-soft); letter-spacing:0.02em;}
+
+  /* full bleed image break */
+  .break-img{position:relative; height:78vh; min-height:460px; overflow:hidden;}
+  .break-img img{width:100%; height:100%; object-fit:cover;}
+  .break-cap{
+    position:absolute; left:40px; bottom:28px; color:#fff; font-size:13px;
+    letter-spacing:0.08em; text-transform:uppercase; opacity:0.85;
+    text-shadow:0 1px 6px rgba(0,0,0,0.4);
+  }
+
+  /* stream section */
+  .stream{background:var(--moss-dark); color:#f2efe6;}
+  .stream .sec-label{color:#d8c39a;}
+  .stream .sec-title{color:#fff;}
+  .stream-text{max-width:640px; margin-top:24px; font-size:18px; font-weight:300; color:#d7ddd0;}
+  .stream-gallery{
+    margin-top:64px;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:180px;
+    gap:8px;
+  }
+  .stream-gallery img{width:100%; height:100%; object-fit:cover; border-radius:2px;}
+  .stream-gallery .g1{grid-column:span 3; grid-row:span 2;}
+  .stream-gallery .g2{grid-column:span 3; grid-row:span 1;}
+  .stream-gallery .g3{grid-column:span 3; grid-row:span 1;}
+  .stream-gallery .g4{grid-column:span 2; grid-row:span 1;}
+  .stream-gallery .g5{grid-column:span 2; grid-row:span 1;}
+  .stream-gallery .g6{grid-column:span 2; grid-row:span 1;}
+  .stream-gallery .g7{grid-column:span 4; grid-row:span 1;}
+  .stream-gallery .g8{grid-column:span 2; grid-row:span 1;}
+
+  /* house section */
+  .house{background:var(--cream);}
+  .condo{position:relative; padding:0;}
+  .condo-img{position:relative; height:100vh; min-height:600px;}
+  .condo-img img{width:100%; height:100%; object-fit:cover;}
+  .condo-img::after{content:"";position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,12,8,0.85) 0%, rgba(10,12,8,0.3) 55%, rgba(10,12,8,0.05) 100%);}
+  .condo-content{
+    position:absolute; top:0; left:0; height:100%; width:100%;
+    display:flex; align-items:center; z-index:2; color:#fff;
+  }
+  .condo-content .wrap{width:100%;}
+  .condo-content .sec-title{color:#fff; max-width:560px;}
+  .condo-content p{margin-top:22px; max-width:460px; font-size:17px; font-weight:300; color:#e5e6dd;}
+  .house-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  }
+  .house-media{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  }
+  .house-media img{border-radius:2px; aspect-ratio:3/4; object-fit:cover;}
+  .house-media img:first-child{grid-row:span 2; aspect-ratio:3/5;}
+  .house-text p{font-size:18px; color:var(--ink-soft); margin-top:22px; font-weight:300; max-width:480px;}
+  .amenities{
+    list-style:none; margin-top:36px; display:grid; gap:14px;
+  }
+  .amenities li{
+    display:flex; gap:14px; align-items:baseline; font-size:15px; color:var(--ink);
+    border-top:1px solid var(--line); padding-top:14px;
+  }
+  .amenities li b{color:var(--moss); font-family:'Fraunces',serif; font-weight:500; font-size:16px; min-width:150px;}
+
+  /* wildlife section */
+  .wildlife{
+    position:relative; padding:0;
+  }
+  .wildlife-img{position:relative; height:100vh; min-height:600px;}
+  .wildlife-img img{width:100%; height:100%; object-fit:cover;}
+  .wildlife-img::after{content:"";position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,12,8,0.88) 0%, rgba(10,12,8,0.35) 55%, rgba(10,12,8,0.05) 100%);}
+  .wildlife-content{
+    position:absolute; top:0; left:0; height:100%; width:100%;
+    display:flex; align-items:center; z-index:2; color:#fff;
+  }
+  .wildlife-content .wrap{width:100%;}
+  .wildlife-content .sec-title{color:#fff; max-width:520px;}
+  .wildlife-content p{margin-top:22px; max-width:440px; font-size:17px; font-weight:300; color:#e5e6dd;}
+
+  /* gallery strip */
+  .strip{background:var(--bg); padding:100px 0;}
+  .strip-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+  }
+  .strip-grid img{aspect-ratio:3/4; object-fit:cover; border-radius:2px;}
+
+  /* specs */
+  .specs{background:var(--cream);}
+  .specs-grid{
+    margin-top:48px; display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .specs-item{
+    background:var(--cream); padding:28px 18px; text-align:center;
+  }
+  .specs-item b{
+    display:block; font-family:'Fraunces',serif; font-size:30px; font-weight:500; color:var(--moss);
+  }
+  .specs-item span{display:block; font-size:13px; color:var(--ink-soft); margin-top:6px;}
+  .specs-price{
+    margin-top:48px; display:flex; align-items:baseline; gap:16px;
+    border-top:1px solid var(--line); padding-top:32px;
+  }
+  .specs-price-label{font-size:14px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft);}
+  .specs-price-value{
+    font-family:'Fraunces',serif; font-size:clamp(28px,4vw,44px); font-weight:500; color:var(--moss-dark);
+  }
+
+  /* cta */
+  .cta{
+    background:var(--moss); color:#fff; text-align:center; padding:130px 0;
+  }
+  .cta .sec-label{color:#c8dcb8;}
+  .cta h2{font-size:clamp(34px,5vw,58px); font-weight:400; max-width:720px; margin:0 auto; line-height:1.12;}
+  .cta p{margin-top:20px; font-size:17px; color:#dbe6d0; max-width:520px; margin-left:auto; margin-right:auto; font-weight:300;}
+  .cta-btn{
+    display:inline-block; margin-top:40px; padding:16px 40px;
+    background:#fff; color:var(--moss-dark); text-decoration:none;
+    border-radius:40px; font-size:14px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;
+    transition:transform .2s;
+  }
+  .cta-btn:hover{transform:translateY(-2px);}
+
+  footer{
+    background:var(--moss-dark); color:#9aa596; padding:44px 0;
+    font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+  footer a{text-decoration:none; border-bottom:1px solid rgba(154,165,150,0.3);}
+
+  @media(max-width:860px){
+    .intro-grid{grid-template-columns:1fr; gap:36px;}
+    .house-grid{grid-template-columns:1fr;}
+    .house-media{order:2;}
+    .stream-gallery{grid-template-columns:repeat(2,1fr); grid-auto-rows:150px;}
+    .stream-gallery .g1,.stream-gallery .g2,.stream-gallery .g3,.stream-gallery .g4,.stream-gallery .g5,.stream-gallery .g6,.stream-gallery .g7,.stream-gallery .g8{grid-column:span 1; grid-row:span 1;}
+    .strip-grid{grid-template-columns:repeat(2,1fr);}
+    .specs-grid{grid-template-columns:repeat(2,1fr);}
+    .specs-price{flex-wrap:wrap;}
+    section{padding:80px 0;}
+    header{padding:18px 20px;}
+    .wrap{padding:0 20px;}
+    .hero-inner{padding:0 20px 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Esta Casa</div>
+  <div class="langswitch">
+    <button data-setlang="pt" class="active">PT</button>
+    <button data-setlang="en">EN</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="img/hero.jpg" alt="Esta Casa entre a mata">
+  <div class="hero-inner">
+    <div data-i18n="pt" class="hero-eyebrow">Serra acima, mata adentro</div>
+    <div data-i18n="en" class="hero-eyebrow">Up the mountain, into the forest</div>
+    <h1 data-i18n="pt">Esta Casa</h1>
+    <h1 data-i18n="en">Esta Casa</h1>
+    <p data-i18n="pt" class="hero-sub">Um refúgio de pedra, madeira e telhado inclinado, cercado por Mata Atlântica preservada — onde a natureza passa sem pedir licença.</p>
+    <p data-i18n="en" class="hero-sub">A retreat of stone, timber and sloped roofs, wrapped in preserved Atlantic Forest — where nature comes and goes without asking permission.</p>
+  </div>
+  <div class="scroll-cue"><span data-i18n="pt">Role</span><span data-i18n="en">Scroll</span><div class="line"></div></div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="wrap intro-grid">
+    <div class="intro-text">
+      <div class="sec-label" data-i18n="pt">A casa</div>
+      <div class="sec-label" data-i18n="en">The house</div>
+      <h2 class="sec-title" data-i18n="pt">Uma construção que aprendeu a conviver com a mata, em harmonia com ela.</h2>
+      <h2 class="sec-title" data-i18n="en">A house that learned to live alongside the forest, in harmony with it.</h2>
+      <p data-i18n="pt">Telhas de barro, tijolo aparente e varandas de madeira se acomodam entre samambaias, palmeiras e árvores altas. A trilha de pedra que leva até a porta segue o desenho natural do terreno — sobe, contorna, atravessa raízes — até chegar à escadaria de pedra que abre para a varanda principal.</p>
+      <p data-i18n="en">Clay tiles, exposed brick and timber verandas settle in among ferns, palms and tall trees. The stone path to the front door follows the natural shape of the land — climbing, curving, crossing roots — until it reaches the stone staircase that opens onto the main veranda.</p>
+      <div class="intro-stats">
+        <div class="stat"><b>36.000m²</b><span data-i18n="pt">Terreno total</span><span data-i18n="en">Total land area</span></div>
+        <div class="stat"><b>1</b><span data-i18n="pt">Nascente de água potável exclusiva</span><span data-i18n="en">Exclusive drinking-water spring</span></div>
+        <div class="stat"><b>1</b><span data-i18n="pt">Cachoeira exclusiva no terreno</span><span data-i18n="en">Exclusive waterfall on the property</span></div>
+        <div class="stat"><b>360°</b><span data-i18n="pt">Cercada por mata nativa</span><span data-i18n="en">Surrounded by native forest</span></div>
+      </div>
+    </div>
+    <div>
+      <img src="img/casa-caminho-01.jpg" alt="Caminho de pedra até Esta Casa" style="border-radius:2px;">
+    </div>
+  </div>
+</section>
+
+<!-- CONDO -->
+<section class="condo">
+  <div class="condo-img">
+    <img src="img/apto-01.jpg" alt="Condomínio de apartamentos em Esta Casa">
+  </div>
+  <div class="condo-content">
+    <div class="wrap">
+      <div class="sec-label" data-i18n="pt">Renda e hospedagem</div>
+      <div class="sec-label" data-i18n="en">Income and accommodation</div>
+      <h2 class="sec-title" data-i18n="pt">Ao lado, um condomínio com 4 apartamentos já alugados.</h2>
+      <h2 class="sec-title" data-i18n="en">Next door, a building with 4 apartments already rented.</h2>
+      <p data-i18n="pt">Além da casa principal, o terreno abriga uma construção independente com 4 apartamentos — atualmente alugados, gerando renda para a propriedade. Cada unidade tem espaço privativo, mantendo o mesmo ambiente de tranquilidade que define toda a propriedade.</p>
+      <p data-i18n="en">Alongside the main house, the property holds a separate building with 4 apartments — currently rented, generating income for the property. Each unit has its own private space, while keeping the same sense of calm that defines the whole property.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BREAK IMAGE -->
+<div class="break-img">
+  <img src="img/casa-02.jpg" alt="Esta Casa entre as árvores">
+  <div class="break-cap" data-i18n="pt">Varanda voltada para a mata</div>
+  <div class="break-cap" data-i18n="en">Veranda facing the forest</div>
+</div>
+
+<!-- STREAM SECTION -->
+<section class="stream">
+  <div class="wrap">
+    <div class="sec-label" data-i18n="pt">O riacho</div>
+    <div class="sec-label" data-i18n="en">The stream</div>
+    <h2 class="sec-title" data-i18n="pt">Água corrente, pedra lavada e o som que nunca para.</h2>
+    <h2 class="sec-title" data-i18n="en">Running water, washed stone, and a sound that never stops.</h2>
+    <p class="stream-text" data-i18n="pt">Um braço d'água atravessa o terreno por entre bambuzais e samambaias gigantes, formando pequenas quedas e poços rasos até chegar a uma cachoeira exclusiva da propriedade. É a trilha sonora constante da casa — presente em toda janela aberta, toda varanda, todo fim de tarde. A propriedade tem ainda uma nascente própria de água potável, que abastece a casa direto na fonte.</p>
+    <p class="stream-text" data-i18n="en">A stream cuts through the property between bamboo groves and giant ferns, forming small falls and shallow pools that lead to an exclusive waterfall on the property. It's the house's constant soundtrack — present at every open window, every veranda, every late afternoon. The property also has its own drinking-water spring, supplying the house straight from the source.</p>
+
+    <div class="stream-gallery">
+      <img class="g1" src="img/riacho-04.jpg" alt="Riacho entre pedras">
+      <img class="g2" src="img/riacho-01.jpg" alt="Curso d'água na mata">
+      <img class="g3" src="img/bambu-01.jpg" alt="Bambuzal">
+      <img class="g4" src="img/riacho-02.jpg" alt="Água corrente sobre pedras">
+      <img class="g5" src="img/riacho-03.jpg" alt="Riacho na Mata Atlântica">
+      <img class="g6" src="img/riacho-06.jpg" alt="Poço de água barrenta pós-chuva">
+      <img class="g7" src="img/riacho-05.jpg" alt="Ponte sobre o riacho">
+      <img class="g8" src="img/riacho-07.jpg" alt="Detalhe do riacho">
+    </div>
+  </div>
+</section>
+
+<!-- HOUSE DETAIL -->
+<section class="house">
+  <div class="wrap house-grid">
+    <div class="house-media">
+      <img src="img/hero.jpg" alt="Detalhe da fachada de Esta Casa">
+      <img src="img/casa-caminho-02.jpg" alt="Fachada de Esta Casa">
+      <img src="img/casa-01.jpg" alt="Escadaria de pedra até a casa">
+    </div>
+    <div class="house-text">
+      <div class="sec-label" data-i18n="pt">Arquitetura</div>
+      <div class="sec-label" data-i18n="en">Architecture</div>
+      <h2 class="sec-title" data-i18n="pt">Telhado inclinado, tijolo à vista, madeira escura.</h2>
+      <h2 class="sec-title" data-i18n="en">Sloped roof, exposed brick, dark timber.</h2>
+      <p data-i18n="pt">A linguagem é rústica de montanha: telhas de barro em duas águas, mansardas com janelas de moldura vermelha, estrutura de madeira aparente e alvenaria em tom terracota. Jardins de folhagem tropical — samambaias, palmeiras, helicônias — tomam conta de cada canteiro ao redor da construção.</p>
+      <p data-i18n="en">The language is rustic mountain architecture: two-slope clay-tile roofs, dormer windows with red-framed glass, exposed timber structure and terracotta-toned masonry. Tropical foliage gardens — ferns, palms, heliconias — fill every bed around the house.</p>
+      <ul class="amenities">
+        <li>
+          <b><span data-i18n="pt">Varanda</span><span data-i18n="en">Veranda</span></b>
+          <span data-i18n="pt">Integrada ao térreo e ao pavimento superior</span><span data-i18n="en">Wraparound, ground and upper floor</span>
+        </li>
+        <li>
+          <b><span data-i18n="pt">Jardim</span><span data-i18n="en">Garden</span></b>
+          <span data-i18n="pt">Paisagismo tropical, escadaria de pedra natural</span><span data-i18n="en">Tropical landscaping, natural stone staircase</span>
+        </li>
+        <li>
+          <b><span data-i18n="pt">Acesso</span><span data-i18n="en">Access</span></b>
+          <span data-i18n="pt">Caminho de pedra portuguesa até a porta</span><span data-i18n="en">Cobblestone path to the front door</span>
+        </li>
+        <li>
+          <b><span data-i18n="pt">Entorno</span><span data-i18n="en">Surroundings</span></b>
+          <span data-i18n="pt">Mata preservada em todas as direções</span><span data-i18n="en">Preserved forest on every side</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WILDLIFE -->
+<section class="wildlife">
+  <div class="wildlife-img">
+    <img src="img/riacho-08.jpg" alt="Mata Atlântica ao redor de Esta Casa">
+  </div>
+  <div class="wildlife-content">
+    <div class="wrap">
+      <div class="sec-label" data-i18n="pt">A mata</div>
+      <div class="sec-label" data-i18n="en">The forest</div>
+      <h2 class="sec-title" data-i18n="pt">Aqui, a natureza passa sem pedir licença.</h2>
+      <h2 class="sec-title" data-i18n="en">Here, nature comes and goes without asking permission.</h2>
+      <p data-i18n="pt">De dia ou de noite, o entorno se move por conta própria — o vento entre o bambuzal, a água que nunca para de correr, os sons e sombras que atravessam o jardim até a porta da casa. É um lembrete simples: aqui, quem construiu por último foi a casa — a mata já estava aqui antes, e continua no comando.</p>
+      <p data-i18n="en">Day or night, the surroundings move on their own terms — wind through the bamboo, water that never stops running, the sounds and shadows that cross the garden right up to the front door. A simple reminder: here, the house was the last thing built — the forest was here first, and it still sets the pace.</p>
+      <p data-i18n="pt" class="wildlife-neighbors">Os vizinhos são cutias, macacos-prego, tucanos e muitas outras espécies da fauna nativa, que circulam pelo terreno como parte natural da paisagem.</p>
+      <p data-i18n="en" class="wildlife-neighbors">The neighbors are agoutis, capuchin monkeys, toucans and many other native species, moving through the property as a natural part of the landscape.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP GALLERY -->
+<section class="strip">
+  <div class="wrap">
+    <div class="sec-label" data-i18n="pt">Galeria</div>
+    <div class="sec-label" data-i18n="en">Gallery</div>
+    <h2 class="sec-title" data-i18n="pt" style="margin-bottom:44px;">Esta Casa, em detalhes.</h2>
+    <h2 class="sec-title" data-i18n="en" style="margin-bottom:44px;">Esta Casa, in detail.</h2>
+    <div class="strip-grid">
+      <img src="img/riacho-09.jpg" alt="Riacho na Mata Atlântica">
+      <img src="img/riacho-10.jpg" alt="Riacho">
+      <img src="img/riacho-11.jpg" alt="Detalhe do riacho">
+      <img src="img/riacho-12.jpg" alt="Água corrente entre pedras">
+      <img src="img/riacho-13.jpg" alt="Trilha de água na mata">
+      <img src="img/riacho-14.jpg" alt="Riacho entre pedras">
+      <img src="img/riacho-15.jpg" alt="Poço de água na Mata Atlântica">
+      <img src="img/apto-02.jpg" alt="Condomínio de apartamentos em Esta Casa">
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs">
+  <div class="wrap">
+    <div class="sec-label" data-i18n="pt">Ficha técnica</div>
+    <div class="sec-label" data-i18n="en">Property details</div>
+    <h2 class="sec-title" data-i18n="pt">A casa da família, em números.</h2>
+    <h2 class="sec-title" data-i18n="en">The family house, in numbers.</h2>
+    <div class="specs-grid">
+      <div class="specs-item"><b>3</b><span data-i18n="pt">Quartos</span><span data-i18n="en">Bedrooms</span></div>
+      <div class="specs-item"><b>2</b><span data-i18n="pt">Cozinhas</span><span data-i18n="en">Kitchens</span></div>
+      <div class="specs-item"><b>2</b><span data-i18n="pt">Salas</span><span data-i18n="en">Living rooms</span></div>
+      <div class="specs-item"><b>4</b><span data-i18n="pt">Banheiros</span><span data-i18n="en">Bathrooms</span></div>
+      <div class="specs-item"><b>1</b><span data-i18n="pt">Sótão / rooftop</span><span data-i18n="en">Attic / rooftop</span></div>
+      <div class="specs-item"><b>36.000m²</b><span data-i18n="pt">Terreno total</span><span data-i18n="en">Total land</span></div>
+    </div>
+    <div class="specs-price">
+      <span class="specs-price-label" data-i18n="pt">Valor</span>
+      <span class="specs-price-label" data-i18n="en">Price</span>
+      <span class="specs-price-value">R$ 7.900.000,00</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="sec-label" data-i18n="pt">Visite</div>
+    <div class="sec-label" data-i18n="en">Visit</div>
+    <h2 data-i18n="pt">Esta Casa está a uma trilha de distância da rotina.</h2>
+    <h2 data-i18n="en">Esta Casa is one trail away from routine.</h2>
+    <p data-i18n="pt">Para saber mais sobre a propriedade, disponibilidade e como chegar, fale direto pelo WhatsApp.</p>
+    <p data-i18n="en">To learn more about the property, availability and directions, reach out directly on WhatsApp.</p>
+    <a href="https://wa.me/5548991221028" target="_blank" rel="noopener" class="cta-btn" data-i18n="pt">Falar no WhatsApp — (48) 99122-1028</a>
+    <a href="https://wa.me/5548991221028" target="_blank" rel="noopener" class="cta-btn" data-i18n="en">Chat on WhatsApp — +55 48 99122-1028</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>Esta Casa © 2026</span>
+    <a href="https://wa.me/5548991221028" target="_blank" rel="noopener">WhatsApp — (48) 99122-1028</a>
+  </div>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.langswitch button');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const lang = btn.dataset.setlang;
+      document.documentElement.setAttribute('data-lang', lang);
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
